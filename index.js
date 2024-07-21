@@ -11,17 +11,17 @@ app.use(bodyParser.json());
 app.use(cookieParser())
 
 // MIDDLEWARE TOKEN
-// app.use((req, res, next) => {
-//   const token = req.cookies.access_token
-//   req.session = { user: null}
+app.use((req, res, next) => {
+  const token = req.cookies.access_token
+  req.session = { user: null}
 
-//   try {
-//     const data = jwt.verify(token, SECRET_JWT_KEY)
-//     req.session.user = data
-//   } catch {}
+  try {
+    const data = jwt.verify(token, SECRET_JWT_KEY)
+    req.session.user = data
+  } catch {}
 
-//   next()
-// })
+  next()
+})
 
 app.set('port', process.env.PORT || 3000)
 app.set('view engine', 'ejs')

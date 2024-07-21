@@ -1,0 +1,1 @@
+el paquete bcrypt no es compatible con vercel, vamos a desactivar el codigo a ver si hace el deploy en vercel

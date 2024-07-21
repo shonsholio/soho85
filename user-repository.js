@@ -1,5 +1,5 @@
 import DBLocal from 'db-local'
-import bcrypt from 'bcrypt'
+// import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 
 const { Schema } = new DBLocal({ path: './db' })
@@ -24,7 +24,9 @@ export class UserRepository {
     if (user) throw new Error('Usuario ya existe')
 
     const id = crypto.randomUUID() //CREANDO EL ID
-    const hashedPassword = bcrypt.hashSync(password, 4) 
+    const hashedPassword = password
+    // const hashedPassword = bcrypt.hashSync(password, 4) 
+
 
     User.create({
       _id: id,
@@ -45,8 +47,13 @@ export class UserRepository {
     const user = User.findOne({ email })
     if (!user) throw new Error('No existe el usuario')
 
-    const isValid = bcrypt.compareSync( password, user.password )
-    if (!isValid) throw new Error('Contraseña es inválida')
+    // const isValid = bcrypt.compareSync( password, user.password )
+
+    if (password !== user.password) {
+      throw new Error('Contraseña es inválida')
+    }
+
+    // if (!isValid) throw new Error('Contraseña es inválida')
 
     const { password: _, ...PublicUser } = user
 
