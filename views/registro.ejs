@@ -1,0 +1,18 @@
+<%- include('partials/_header') %>
+
+<button><a href="/">HOME</a></button>
+  
+  <div class="d-flex justify-content-center">
+    <form class="card p-5" action="/newUser" method="post">
+      <p class="text-center display-5">REGISTRO</p>
+      <input class="d-block" placeholder="nombre" name="nombre">    
+      <input class="d-block" placeholder="celular" name="celular">
+      <input class="d-block" placeholder="apartamento" name="apartamento">
+      <input class="d-block" placeholder="email" name="email">
+      <input class="d-block" placeholder="contraseña" name="password">
+      <input class="d-block" placeholder="confirmar contraseña" name="confirmPassword">
+      <button>CREAR USUARIO</button>
+    </form>
+  </div>
+</body>
+</html> 

@@ -1,0 +1,38 @@
+<%- include('partials/_header') %>
+
+  <h1 class="text-center" >PAGINA PROTEGIDA</h1>
+  <button><a href="/logout">CERRAR SESION</a></button>
+  <p class="display-5 text-center">Hola, <%= user.nombre %></p>
+
+  <p class="display-5"></p>
+
+  <div class="d-flex justify-content-center">
+
+    <form class="card rounded text-white p-4 col-5" style="background-color: #dc0f62;">
+      <p class="text-center">Registro ingreso</p>
+      <label>Check-In</label>
+      <input type="date">
+      <label>Check-Out</label>
+      <input type="date">
+      <label>Nombre Huésped</label>
+      <input class="d-block">
+      <label class="d-block">Tipo de Documento</label>
+      <select class="d-block" required>
+        <option></option>
+        <option value="cedula">Cédula de Ciudadanía</option>
+        <option value="extranjeria">Cédula de Extranjería</option>
+        <option value="pasaporte">Pasaporte</option>
+      </select>
+      <label class="d-block">Teléfono</label>
+      <input class="d-block">
+      <label class="d-block">e-mail</label>
+      <input class="d-block">
+      <label class="d-block">Nacionalidad</label>
+      <input class="d-block">
+      <button type="submit">Registrar</button>
+    </form>
+
+  </div>
+  
+</body>
+</html> 
