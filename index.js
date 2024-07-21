@@ -22,12 +22,13 @@ app.use((req, res, next) => {
   
 })
 
+app.set('port', process.env.PORT || PORT)
 app.set('view engine', 'ejs')
 
 // Routes
 app.use('/', router)
 
 
-app.listen(PORT, () => {
+app.listen(app.get('port'), () => {
   console.log(`CONECTADOS AL ToPuer ${PORT}`)
 })
