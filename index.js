@@ -31,5 +31,5 @@ app.use('/', router)
 
 
 app.listen(app.get('port'), () => {
-  console.log(`CONECTADOS AL ToPuer ${PORT}`)
+  console.log(`CONECTADOS AL ToPuer`)
 })
