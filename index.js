@@ -2,7 +2,6 @@ import express from 'express'
 import bodyParser from 'body-parser'; 
 import cookieParser from 'cookie-parser';
 import { router } from './routes/main.js'
-import { PORT } from './config.js'
 
 const app = express()
 
@@ -22,7 +21,7 @@ app.use((req, res, next) => {
   
 })
 
-app.set('port', process.env.PORT || PORT)
+app.set('port', process.env.PORT || 3000)
 app.set('view engine', 'ejs')
 
 // Routes
