@@ -1,45 +1,47 @@
-import DBLocal from 'db-local'
+import mongoose from 'mongoose'
 // import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 
-const { Schema } = new DBLocal({ path: './db' })
-
-const User = Schema('User', {
+const UserScheme = new mongoose.Schema({
   _id:{ type: String, required: true }, 
   nombre:{ type: String, required: true }, 
   celular:{ type: String, required: true },
   apartamento:{ type: String, required: true },
   email:{ type: String, required: true },
   password:{ type: String, required: true }
-
 })
 
+const anfitrion = mongoose.model('anfitrion', UserScheme)
+export default anfitrion
+
+
 export class UserRepository {
+
   static create ({ nombre, celular, apartamento, email, password }) {
     Validate.email(email)
     Validate.password(password)
 
-
-    const user = User.findOne({ email }) //VERIFICAR SI EL EMAIL YA ESTA EN LA BASE DE DATOS
-    if (user) throw new Error('Usuario ya existe')
-
     const id = crypto.randomUUID() //CREANDO EL ID
-    const hashedPassword = password
-    // const hashedPassword = bcrypt.hashSync(password, 4) 
 
-
-    User.create({
+    anfitrion.create({
       _id: id,
       nombre,
       celular,
       apartamento,
       email,
-      password: hashedPassword
-    }).save()
+      password
+    })
 
-    return id
+    // console.log(user)
+
+    // if (user) throw new Error('Usuario ya existe')
+
+    // const hashedPassword = password
+    // // const hashedPassword = bcrypt.hashSync(password, 4) 
+
   }
 
+  
   static login ({ email, password }) {
     Validate.email(email)
     // Validate.password(password)

@@ -1,4 +1,6 @@
 import express from 'express'
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser'; 
 import cookieParser from 'cookie-parser';
 import { router } from './routes/main.js'
@@ -6,6 +8,13 @@ import { router } from './routes/main.js'
 
 const app = express()
 
+dotenv.config({ path: './config.env' })
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then( connection => {
+    console.log('Tamos Mongueaoss')
+  })
+  .catch('Error conectando a Mongo')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser())
