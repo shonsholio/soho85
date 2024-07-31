@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 // import bcrypt from 'bcrypt'
 import crypto from 'crypto'
+import { domainToUnicode } from 'url'
 
 const UserScheme = new mongoose.Schema({
   _id:{ type: String, required: true }, 
@@ -16,7 +17,6 @@ export default anfitrion
 
 
 export class UserRepository {
-
   static create ({ nombre, celular, apartamento, email, password }) {
     Validate.email(email)
     Validate.password(password)
@@ -45,21 +45,26 @@ export class UserRepository {
   static login ({ email, password }) {
     Validate.email(email)
     // Validate.password(password)
-    
-    const user = User.findOne({ email })
-    if (!user) throw new Error('No existe el usuario')
 
-    // const isValid = bcrypt.compareSync( password, user.password )
+    let user = [];
 
-    if (password !== user.password) {
-      throw new Error('Contraseña es inválida')
-    }
+    anfitrion.find({ email: email })
+    .then(resp => {
+      var user = resp
+    })
 
-    // if (!isValid) throw new Error('Contraseña es inválida')
+    console.log(user)
 
     const { password: _, ...PublicUser } = user
-
     return PublicUser
+
+    // if (password !== resp[0].password) throw new Error('Contraseña es inválida');
+
+    // const isValid = bcrypt.compareSync( password, user.password )
+    
+    // if (!isValid) throw new Error('Contraseña es inválida')
+    
+
   }
 }
 

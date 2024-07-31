@@ -9,16 +9,17 @@ controller.inicio = (req, res) => {
 }
 
 controller.logout = (req, res) => {
- res.
-    clearCookie('access_token', 'user')
+ res
+    .clearCookie('access_token', 'user')
     .redirect('/')
 }
 
 controller.login = async (req, res) => {
   const { email, password } = req.body
-
+  
   try {
     const user = await UserRepository.login({ email, password })
+
     const token = jwt.sign({ id: user._id, email: user.email}, SECRET_JWT_KEY, { expiresIn: '1h' })
     res
       .cookie('access_token', token, {

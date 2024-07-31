@@ -15,6 +15,7 @@ mongoose.connect(process.env.MONGODB_URI)
     console.log('Tamos Mongueaoss')
   })
   .catch('Error conectando a Mongo')
+  
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser())
