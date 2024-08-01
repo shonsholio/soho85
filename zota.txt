@@ -1,1 +1,5 @@
-el paquete bcrypt no es compatible con vercel, vamos a desactivar el codigo a ver si hace el deploy en vercel
+TAREAS PDTES
+
+Cuando haga el login, la pagina protected, debe visualizar un modulo donde aparezca una tabla de las reservas de cada usuario
+
+Revisar que las reservas no esten repetidas en la base de datos

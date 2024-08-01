@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
+import book from './models/book.js'
 import { domainToUnicode } from 'url'
 
 const UserScheme = new mongoose.Schema({
@@ -71,6 +72,22 @@ export class UserRepository {
 
 }
 
+export class NewBook {
+  static create ({ anfitrion, apartamento, checkIn, checkOut, huesped, tipoDoc, numDoc, pax }) {
+
+    book.create({
+      anfitrion, 
+      apartamento, 
+      checkIn, 
+      checkOut, 
+      huesped, 
+      tipoDoc, 
+      numDoc, 
+      pax
+    })
+  }
+}
+
 class Validate  {
   static email (email) {
     if (typeof email !== 'string') throw new Error('Introduzca un email válido')
@@ -85,3 +102,4 @@ class Validate  {
   }
 
 }
+

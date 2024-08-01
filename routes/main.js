@@ -14,6 +14,10 @@ router.get('/register', controller.register)
 router.post('/newUser', controller.oneRegister)
 
 router.get('/protected',controller.protected )
+router.get('/books',controller.books )
+
+
+router.post('/newBook', controller.newBook)
 
 router.get('/logout', controller.logout)
 

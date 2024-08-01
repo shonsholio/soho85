@@ -1,0 +1,24 @@
+ // Validate.password(password)    
+
+    // async function verUsuario(req, res){
+    //   try {
+    //     const usuario =
+    //  await anfitrion.find({ email: email }).exec()
+    //     return usuario
+    //   } catch {}
+    // }
+
+    // console.log(usuario)
+    // verUsuario(email)
+
+
+    // // const { password: _, ...PublicUser } = usuario
+
+    // // return usuario
+    
+    // // if (password !== resp[0].password) throw new Error('Contraseña es inválida');
+
+    // // const isValid = bcrypt.compareSync( password, user.password )
+    
+    // // if (!isValid) throw new Error('Contraseña es inválida')
+    

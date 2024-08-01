@@ -7,27 +7,48 @@
 
   <div class="d-flex justify-content-center">
 
-    <form class="card rounded text-white p-4 col-5" style="background-color: #dc0f62;">
+    <form class="card rounded text-white p-4 col-5" style="background-color: #dc0f62;" action="/newBook" method="post">
       <p class="text-center">Registro ingreso</p>
+
+      <input class="d-none" name="anfitrion" value="<%= user.email %>">
+
+      <label>Apartamento</label>
+      <input name="apartamento">
+
       <label>Check-In</label>
-      <input type="date">
+      <input type="date" name="checkIn">
+
       <label>Check-Out</label>
-      <input type="date">
+      <input type="date" name="checkOut">
+
       <label>Nombre Huésped</label>
-      <input class="d-block">
+      <input class="d-block" name="huesped">
+
       <label class="d-block">Tipo de Documento</label>
-      <select class="d-block" required>
+      <select class="d-block" required name="tipoDoc">
         <option></option>
         <option value="cedula">Cédula de Ciudadanía</option>
         <option value="extranjeria">Cédula de Extranjería</option>
         <option value="pasaporte">Pasaporte</option>
       </select>
-      <label class="d-block">Teléfono</label>
-      <input class="d-block">
-      <label class="d-block">e-mail</label>
-      <input class="d-block">
+
+      <label class="d-block">Número de Documento</label>
+      <input class="d-block" name="numDoc" placeholder="Ingresar número de documento sin puntos ni espacios">
+
+      <label class="d-block">Total huéspedes</label>
+      <select class="d-block" name="pax" required>
+        <option>-- / --</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
+
       <label class="d-block">Nacionalidad</label>
-      <input class="d-block">
+      <input class="d-block" name="pais">
+
       <button type="submit">Registrar</button>
     </form>
 

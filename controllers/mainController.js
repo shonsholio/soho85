@@ -1,11 +1,16 @@
 const controller = {}
-import { UserRepository } from '../user-repository.js';
+import { NewBook, UserRepository } from '../user-repository.js';
 import jwt from 'jsonwebtoken'
 import { SECRET_JWT_KEY } from '../config.js'
 
 controller.inicio = (req, res) => {
   const { user } = req.session
   res.render('main', user)
+}
+
+controller.books = (req, res) => {
+  const { user } = req.session
+  res.render('books', user)
 }
 
 controller.logout = (req, res) => {
@@ -23,7 +28,7 @@ controller.login = async (req, res) => {
     if (user === undefined) {
       res.send('Algo ha salido mal, vuelva a intentarlo !!!')
     }
-    
+
     const token = jwt.sign({ id: user._id, email: user.email}, SECRET_JWT_KEY, { expiresIn: '1h' })
     res
       .cookie('access_token', token, {
@@ -43,8 +48,7 @@ controller.login = async (req, res) => {
 }
 
 controller.register = (req, res) => {
-  res
-    .render('registro')
+  res.render('registro')
 }
 
 controller.oneRegister = (req, res) => {
@@ -73,6 +77,17 @@ controller.protected = (req, res) => {
   } catch (error) {
     res.status(401).send('Accesibirijilo no autorizado')
   }
+}
+
+controller.newBook = async (req, res) => {
+  const { anfitrion, apartamento, checkIn, checkOut, huesped, tipoDoc, numDoc, pax } = req.body
+
+  try {
+    const newBooking = NewBook.create({ anfitrion, apartamento, checkIn, checkOut, huesped, tipoDoc, numDoc, pax })
+    res.redirect('/books')
+  } catch {}
+
+  console.log()
 }
 
 export { controller }
