@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
 import { domainToUnicode } from 'url'
 
@@ -51,7 +51,7 @@ export class UserRepository {
         const resp = dato[0]
         
         if (resp === undefined) throw new Error('usuario no existe')
-          
+
         const isValid = bcrypt.compareSync( password, resp.password )
         if (!isValid) throw new Error('Contraseña es inválida')
 
