@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-// import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import { domainToUnicode } from 'url'
 
@@ -23,6 +23,8 @@ export class UserRepository {
     Validate.password(password)
 
     const id = crypto.randomUUID() //CREANDO EL ID
+    const hashedPassword = bcrypt.hashSync(password, 4) 
+    console.log(hashedPassword)
 
     anfitrion.create({
       _id: id,
@@ -30,15 +32,13 @@ export class UserRepository {
       celular,
       apartamento,
       email,
-      password
+      password: hashedPassword
     })
 
-    // console.log(user)
 
     // if (user) throw new Error('Usuario ya existe')
 
     // const hashedPassword = password
-    // // const hashedPassword = bcrypt.hashSync(password, 4) 
 
   }
 
@@ -49,9 +49,13 @@ export class UserRepository {
       try{
         const dato = await anfitrion.find({ email: email }).exec()
         const resp = dato[0]
-
+        
         if (resp === undefined) throw new Error('usuario no existe')
-        if (resp.password !== password) throw new Error('no es la clave rey') // Comprobando que las claves sean iguales
+          
+        const isValid = bcrypt.compareSync( password, resp.password )
+        if (!isValid) throw new Error('Contraseña es inválida')
+
+        // if (resp.password !== password) throw new Error('no es la clave rey') // Comprobando que las claves sean iguales
 
         return resp
       } catch (error) {
