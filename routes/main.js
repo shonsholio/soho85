@@ -5,7 +5,6 @@ import { controller } from "../controllers/mainController.js";
 const app = express()
 
 
-
 router.get('/', controller.inicio)
 
 router.post('/login', controller.login)
@@ -17,10 +16,6 @@ router.post('/newUser', controller.oneRegister)
 router.get('/protected',controller.protected )
 
 router.get('/logout', controller.logout)
-
-router.get('/prueba', controller.prueba)
-
-
 
 
 export { router } 

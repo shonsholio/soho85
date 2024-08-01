@@ -20,6 +20,10 @@ controller.login = async (req, res) => {
   try {
     const user = await UserRepository.login({ email, password })
 
+    if (user === undefined) {
+      res.send('Algo ha salido mal, vuelva a intentarlo !!!')
+    }
+    
     const token = jwt.sign({ id: user._id, email: user.email}, SECRET_JWT_KEY, { expiresIn: '1h' })
     res
       .cookie('access_token', token, {
@@ -70,9 +74,5 @@ controller.protected = (req, res) => {
     res.status(401).send('Accesibirijilo no autorizado')
   }
 }
-
-controller.prueba = (req, res) => {
-  res.render('prueba')
- }
 
 export { controller }

@@ -17,6 +17,7 @@ export default anfitrion
 
 
 export class UserRepository {
+
   static create ({ nombre, celular, apartamento, email, password }) {
     Validate.email(email)
     Validate.password(password)
@@ -41,31 +42,29 @@ export class UserRepository {
 
   }
 
-  
   static login ({ email, password }) {
     Validate.email(email)
-    // Validate.password(password)
 
-    let user = [];
+    async function infoUser(email) {
+      try{
+        const dato = await anfitrion.find({ email: email }).exec()
+        const resp = dato[0]
 
-    anfitrion.find({ email: email })
-    .then(resp => {
-      var user = resp
-    })
+        if (resp === undefined) throw new Error('usuario no existe')
+        if (resp.password !== password) throw new Error('no es la clave rey') // Comprobando que las claves sean iguales
 
-    console.log(user)
+        return resp
+      } catch (error) {
+        console.error(error)
+      }
+    } 
 
-    const { password: _, ...PublicUser } = user
-    return PublicUser
+    const user = infoUser(email)
 
-    // if (password !== resp[0].password) throw new Error('Contraseña es inválida');
-
-    // const isValid = bcrypt.compareSync( password, user.password )
-    
-    // if (!isValid) throw new Error('Contraseña es inválida')
-    
+    return user
 
   }
+
 }
 
 class Validate  {
