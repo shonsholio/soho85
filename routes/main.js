@@ -7,19 +7,5 @@ const app = express()
 
 router.get('/', controller.inicio)
 
-router.post('/login', controller.login)
-
-router.get('/register', controller.register)
-
-router.post('/newUser', controller.oneRegister)
-
-router.get('/protected',controller.protected )
-router.get('/books',controller.books )
-
-
-router.post('/newBook', controller.newBook)
-
-router.get('/logout', controller.logout)
-
 
 export { router } 

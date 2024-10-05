@@ -3,3 +3,5 @@ TAREAS PDTES
 Cuando haga el login, la pagina protected, debe visualizar un modulo donde aparezca una tabla de las reservas de cada usuario
 
 Revisar que las reservas no esten repetidas en la base de datos
+
+Recuerda que el password no debe pasar al frontend por las cookies
