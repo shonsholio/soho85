@@ -5,8 +5,10 @@ const controller = require('../controllers/mainController.js')
 const app = express()
 
 router.get('/', controller.inicio)
-router.get('/logIn', controller.logIn)
+router.get('/logIn', controller.getLogIn)
 router.get('/register', controller.getRegister)
+router.get('/hostEx', controller.getHostEx)
+
 
 router.post('/verRegister', controller.postRegister)
 router.post('/registerHost', controller.postRegisterHost)

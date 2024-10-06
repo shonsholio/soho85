@@ -6,7 +6,7 @@ controller.inicio = (req, res) => {
   res.render('main')
 }
 
-controller.logIn = (req, res) => {
+controller.getLogIn = (req, res) => {
   res.render('logIn')
 }
 
@@ -40,11 +40,18 @@ controller.postRegisterHost = async (req, res) => {
 
   try {
     const id = UserRepository.create({ name, email, pass, celular, aptos })
-    console.log('Usuario creado')
-    res.redirect('/')
+    res.redirect(`/hostEx?n=${name}`)
   } catch (error) {
     res.status(401).send(error.message)
   }
+
+}
+
+controller.getHostEx = async (req, res) => {
+  const nombre = req.query.n 
+  console.log('nombre')
+
+  res.render('hostEx.ejs', { nombre })
 
 }
 
