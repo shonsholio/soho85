@@ -1,16 +1,25 @@
-import express from 'express'
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import bodyParser from 'body-parser'; 
-import cookieParser from 'cookie-parser';
-import path from 'path'
-import { router } from './routes/main.js'
+const express = require('express')
+const cors = require('cors')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const path = require('path')
+const router = require('./routes/main.js')
 
 const app = express()
 const _dirname = process.cwd()
-  
+dotenv.config({ path: './config.env'})
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(connection => {
+    console.log('TAMOS EN MONGO PAPA')
+  })
+  .catch('Error conectando a mongo')
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors())
 app.use(cookieParser())
 
 // MIDDLEWARE TOKEN

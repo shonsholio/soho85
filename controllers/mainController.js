@@ -1,8 +1,51 @@
+const UserRepository = require("../user-repository.js")
+
 const controller = {}
 
 controller.inicio = (req, res) => {
-  const { user } = req.session
-  res.render('main', user)
+  res.render('main')
 }
 
-export { controller }
+controller.logIn = (req, res) => {
+  res.render('logIn')
+}
+
+controller.getRegister = (req, res) => {
+
+  if (req.query.id !== undefined) {
+    const mensajeError = "Las Contraseñas no coinciden"
+    res.render('register', { mensajeError })
+  } else {
+    const mensajeError = ""
+    res.render('register', { mensajeError })
+  }
+
+}
+
+controller.postRegister = (req, res) => {
+  const form = req.body
+
+  if(form.pass !== form.confirmPass){
+    res.redirect('/register?id=contrasenas_no_coinciden', form)
+  } else {
+    res.render('confirmRegisterHost', {
+      form
+    })
+  }
+
+}
+
+controller.postRegisterHost = async (req, res) => {
+  const { name, email, pass, celular, aptos } = req.body
+
+  try {
+    const id = UserRepository.create({ name, email, pass, celular, aptos })
+    console.log('Usuario creado')
+    res.redirect('/')
+  } catch (error) {
+    res.status(401).send(error.message)
+  }
+
+}
+
+module.exports = controller

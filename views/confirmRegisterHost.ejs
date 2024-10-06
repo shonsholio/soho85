@@ -1,0 +1,29 @@
+<%- include('partials/_header') %>
+
+<div class="">
+
+  <p>Las contraseñas coinciden</p>
+  <p>Aqui confirmamos la data del formulario Host</p>
+
+  
+  <p>Nombre: <%= form.name %></p>
+  <p>E-Mail: <%= form.email %></p>
+  <p>Contacto: <%= form.celular %></p>
+  <p>Aptos: <%= form.aptos %></p>
+
+  <form action="/registerHost" method="POST">
+    <input name="name" value="<%= form.name %>" class="d-none">
+    <input name="email" value="<%= form.email %>" class="d-none">
+    <input name="pass" value="<%= form.pass %>" class="d-none">
+    <input name="celular" value="<%= form.celular %>" class="d-none">
+    <input name="aptos" value="<%= form.aptos %>" class="d-none">
+    <button type="submit" class="btn btn-primary">Confirmar</button>
+  </form>
+  
+  <a href="/" class="btn btn-primary">Regresar</a>    
+
+</div>
+
+
+</body>
+</html>   
