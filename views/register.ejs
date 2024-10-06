@@ -2,17 +2,41 @@
 
 <div class="card">
   
-  <p class="d-block">REGISTRE SU CUENTA</p>
+  <p class="d-block display-4">REGISTRE SU CUENTA</p>
   
   <p style="background-color: red; color: white; padding: 10px;"><%= mensajeError %></p>
   <form action="/verRegister" method="post" class="d-block">
   
-    <input class="d-block form-control mb-3" style="width: 75%;" name="name" placeholder="Nombre del Anfitrión" required>
-    <input class="d-block form-control mb-3" style="width: 75%;" name="email" type="email" placeholder="Correo Electrónico" required>
-    <input class="d-block form-control mb-3" style="width: 75%;" name="pass" type="password" placeholder="Contraseña" required>
-    <input class="d-block form-control mb-3" style="width: 75%;" name="confirmPass" type="password" placeholder="Confirmar Contraseña" required>
-    <input class="d-block form-control mb-3" style="width: 75%;" name="celular" type="number" placeholder="Teléfono de Contacto" required>
-    <input class="d-block form-control mb-3" style="width: 75%;" name="aptos" placeholder="Aptos a cargo" required>
+    <div class="form-control mb-3" style="width: 75%;">
+      <i class="fa fa-user"></i>
+      <input class="border-0" name="name" placeholder="Nombre del Anfitrión" required>
+    </div>
+
+    <div class="form-control mb-3" style="width: 75%;">
+      <i class="fa fa-envelope"></i>
+      <input class="border-0" name="email" type="email" placeholder="Correo Electrónico" required>
+    </div>
+
+    <div class="form-control mb-3" style="width: 75%;">
+      <i class="fa fa-lock"></i>
+      <input class="border-0" name="pass" type="password" placeholder="Contraseña" required>
+    </div>
+
+    <div class="form-control mb-3" style="width: 75%;">
+      <i class="fa fa-unlock"></i>
+      <input class="border-0" name="confirmPass" type="password" placeholder="Confirmar Contraseña" required>
+    </div>
+
+    <div class="form-control mb-3" style="width: 75%;">
+      <i class="fa fa-phone"></i>
+      <input class="border-0" name="celular" type="number" placeholder="Teléfono de Contacto" required>
+    </div>
+
+   
+    <div class="form-control mb-3" style="width: 75%;">
+      <i class="fa fa-home"></i>
+      <input class="border-0" name="aptos" placeholder="Aptos a cargo" required>
+    </div>
     
     <button type="submit">ENVIAR</button>
   
