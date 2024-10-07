@@ -1,4 +1,5 @@
 const UserRepository = require("../user-repository.js")
+const host = require("../models/host.js")
 
 const controller = {}
 
@@ -39,7 +40,7 @@ controller.postRegisterHost = async (req, res) => {
   const { name, email, pass, celular, aptos } = req.body
 
   try {
-    await UserRepository.create({ name, email, pass, celular, aptos })
+    const id = UserRepository.create({ name, email, pass, celular, aptos })
     res.redirect(`/hostEx?n=${name}`)
   } catch (error) {
     res.status(401).send(error.message)
@@ -52,6 +53,16 @@ controller.getHostEx = async (req, res) => {
   console.log('nombre')
 
   res.render('hostEx.ejs', { nombre })
+
+}
+
+controller.getAdminHost = async (req, res) => {
+
+  try {
+    const data = await host.find()
+    res.render('admin', { 
+      data })
+  } catch {}
 
 }
 

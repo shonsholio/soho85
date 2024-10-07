@@ -1,0 +1,34 @@
+<%- include('partials/_header') %>
+
+
+<br>
+<div class="text-center mt-5">
+  
+  <p class="display-2">SOHO 85</p>
+  <br>
+
+
+  <p class="mx-5">Listado Anfitriones</p>
+
+  <table class="table table">
+    <tr>
+      <th>Anfitrión</th>
+      <th>Apto</th>
+    </tr>
+
+    <tr>
+      <% for (a=0 ; a < data.length; ++a) { %>
+      <td><%= data[a].name %></td>
+      <td><%= data[a].aptos %></td>
+
+    </tr>
+    <% } %> <!--Ciere del for a-->
+  </table>
+  <br>
+
+    
+</div>
+
+
+</body>
+</html>   

@@ -19,6 +19,13 @@ class UserRepository {
     })
   }
 
+  static find () {
+
+    host.find({}).sort({ name: -1 })
+  }
+
 }
+
+
 
 module.exports = UserRepository
