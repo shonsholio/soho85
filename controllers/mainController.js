@@ -39,7 +39,7 @@ controller.postRegisterHost = async (req, res) => {
   const { name, email, pass, celular, aptos } = req.body
 
   try {
-    const id = UserRepository.create({ name, email, pass, celular, aptos })
+    await UserRepository.create({ name, email, pass, celular, aptos })
     res.redirect(`/hostEx?n=${name}`)
   } catch (error) {
     res.status(401).send(error.message)
