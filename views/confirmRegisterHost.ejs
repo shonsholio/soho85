@@ -1,15 +1,16 @@
 <%- include('partials/_header') %>
 
-<div class="">
+<br>
+<div class="text-center mt-5">
 
-  <p>Las contraseñas coinciden</p>
-  <p>Aqui confirmamos la data del formulario Host</p>
+  <p class="display-2 text-center">SOHO 85</p>
+  <p class="text-center">Verifique los datos y confirme para crear su cuenta</p>
 
   
   <p>Nombre: <%= form.name %></p>
   <p>E-Mail: <%= form.email %></p>
   <p>Contacto: <%= form.celular %></p>
-  <p>Aptos: <%= form.aptos %></p>
+  <p>Apto(s): <%= form.aptos %></p>
 
   <form action="/registerHost" method="POST">
     <input name="name" value="<%= form.name %>" class="d-none">
@@ -20,7 +21,7 @@
     <button type="submit" class="btn btn-primary">Confirmar</button>
   </form>
   
-  <a href="/" class="btn btn-primary">Regresar</a>    
+  <a href="/register" class="btn btn-primary mt-3">Cancelar</a>    
 
 </div>
 

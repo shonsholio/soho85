@@ -2,17 +2,36 @@
 
 
 <br>
-<div class="text-center mt-5">
+<div class="text-center mt-5 justify-content-center">
   
   <p class="display-2">SOHO 85</p>
   <br>
 
-
-  <p class="mx-5">Aquí iría el Log In</p>
-  <br>
-
-  <a href="/logIn" class="btn btn-primary rounded-pill">Iniciar Sesión</a>
+  <p><%= errorMessage %></p>
+  <div class="card border-0 pt-5 pb-5">
+  
     
+    <form action="/logIn" method="post" class="d-flex justify-content-center">
+  
+      <div class="">
+
+        <div class="d-block form-control-custom mb-3">
+          <i class="fa fa-envelope"></i>
+          <input class="border-0 text-center" name="email" style="width: 100%;" type="email" placeholder="Correo Electrónico" required>
+        </div>
+    
+        <div class="d-block form-control-custom mb-3">
+          <i class="fa fa-lock"></i>
+          <input class="border-0 text-center" name="pass" style="width: 100%;" type="password" placeholder="Contraseña" required>
+        </div>
+        
+        <button class="btn btn-primary" type="submit">INICIA SESION</button>
+
+      </div>
+    
+    </form>
+  
+  </div>    
 </div>
 
 

@@ -9,10 +9,18 @@ router.get('/logIn', controller.getLogIn)
 router.get('/register', controller.getRegister)
 router.get('/hostEx', controller.getHostEx)
 
+router.get('/hostSession', controller.getHostSession)
+router.get('/newBook', controller.getNewBook)
+router.post('/newBook', controller.postNewBook)
+
+
+
+router.get('/logOut', controller.getLogOut)
+
 router.get('/admin/adminHost', controller.getAdminHost)
 
 
-
+router.post('/logIn', controller.postLogIn)
 router.post('/verRegister', controller.postRegister)
 router.post('/registerHost', controller.postRegisterHost)
 

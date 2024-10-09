@@ -1,0 +1,42 @@
+<%- include('partials/_header') %>
+
+<div class="text-center mt-5">
+  
+  <p class="display-2">SOHO 85</p>
+  <p>Panel de Control <%= user.name %></p>
+  
+  <div class="mt-3 d-flex justify-content-center">
+    <a href="/newBook" type="button" class="btn btn-primary me-2" >Nueva Reserva</a>
+    <a href="/logOut" type="button" class="btn btn-primary ms-2" >Cerrar Sesión</a>
+  </div>
+      
+</div>
+
+<p class="mt-4 mx-5 text-center fw-bold background-color">Mis Reservas</p>
+
+<div class="d-flex justify-content-center">
+  <table class="table table" style="width: 80%;">
+    <tr>
+      <th>Apto</th>
+      <th>Llegada</th>
+      <th>Huésped</th>
+    </tr>
+  
+    <tr>
+      <% for (x=0; x < reservas.length; ++x) { %>
+      <td><%= reservas[x].apto %></td>
+      <td><%= reservas[x].checkIn %></td>
+      <td><%= reservas[x].huesped %></td>
+  
+  
+    </tr>
+    <% } %>
+  </table>
+</div>
+
+
+
+  
+
+</body>
+</html>   

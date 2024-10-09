@@ -1,5 +1,4 @@
 const host = require('./models/host')
-const mongoose = require('mongoose')
 const crypto = require('crypto')
 const bcrypt = require('bcryptjs')
 
@@ -17,11 +16,6 @@ class UserRepository {
       celular,
       aptos
     })
-  }
-
-  static find () {
-
-    host.find({}).sort({ name: -1 })
   }
 
 }
