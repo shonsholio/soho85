@@ -1,45 +1,57 @@
 <%- include('partials/_header') %>
 
-<div class="card">
-  
-  <p class="d-block display-4">REGISTRE SU CUENTA</p>
-  
-  <p style="background-color: red; color: white; padding: 10px;"><%= mensajeError %></p>
-  <form action="/verRegister" method="post" class="d-block">
-  
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-user"></i>
-      <input class="border-0" name="name" placeholder="Nombre del Anfitrión" required>
-    </div>
+<div class="text-center mt-5">
+  <p class="display-2">SOHO 85</p>
 
-    <div class="form-control-lg mb-3" style="width: 75%;">
-      <i class="fa fa-envelope"></i>
-      <input class="border-0" name="email" type="email" placeholder="Correo Electrónico" required>
-    </div>
+  <p class="d-block fw-bold mt-4">CREAR CUENTA</p>
 
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-lock"></i>
-      <input class="border-0" name="pass" type="password" placeholder="Contraseña" required>
-    </div>
-
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-unlock"></i>
-      <input class="border-0" name="confirmPass" type="password" placeholder="Confirmar Contraseña" required>
-    </div>
-
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-phone"></i>
-      <input class="border-0" name="celular" placeholder="Teléfono de Contacto" required>
-    </div>
-
-   
-    <div class="form-control" style="width: 75%;">
-      <i class="fa fa-home"></i>
-      <input class="border-0" name="aptos" placeholder="Aptos a cargo" required>
-    </div>
-    <p class="ms-3" style="font-size: small;">* Separe por comas (,) si gestiona más de una propiedad</p>
+  <% if (!mensajeError) { %>
+    <% let fondo = "white" %>
+  <% } else { %>
+    <% let fondo = "red" %>
     
-    <button type="submit">ENVIAR</button>
+    <p style="background-color: <%= fondo %>; color: white; padding: 5px;"><%= mensajeError %></p>
+    <% } %>
+
+  <form action="/verRegister" method="post" class="d-flex justify-content-center">
+  
+
+    <div class="">
+
+      <div class="form-control mb-3 border-0">
+        <i class="fa fa-user"></i>
+        <input class="border-0 text-center" name="name" placeholder="Nombre del Anfitrión" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0">
+        <i class="fa fa-envelope"></i>
+        <input class="border-0 text-center" name="email" type="email" placeholder="Correo Electrónico" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0">
+        <i class="fa fa-lock justify-content-center "></i>
+        <input class="border-0 text-center" name="pass" type="password" placeholder="Contraseña" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0">
+        <i class="fa fa-unlock"></i>
+        <input class="border-0 text-center" name="confirmPass" type="password" placeholder="Confirmar Contraseña" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0">
+        <i class="fa fa-phone"></i>
+        <input class="border-0 text-center" name="celular" placeholder="Teléfono de Contacto" required>
+      </div>
+  
+      <div class="form-control mb-2 border-0">
+        <i class="fa fa-home"></i>
+        <input class="border-0 text-center" name="aptos" placeholder="Aptos a cargo" required>
+      </div>
+      <p class="ms-3" style="font-size: small;">* Separe por comas (,) si gestiona más de una propiedad</p>
+      
+      <button class="btn btn-primary mt-3" type="submit">ENVIAR</button>
+
+    </div>
   
   </form>
 
