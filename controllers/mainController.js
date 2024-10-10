@@ -6,12 +6,11 @@ const guest = require("../models/guest.js")
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv')
 const crypto = require('crypto')
-const SECRET_JWT_KEY = require('../config.js')
-
+const SECRET_JWT_KEY= require('../config.js')
 const nodemailer = require('nodemailer')
 
+require('dotenv').config()
 
 const controller = {}
 
@@ -22,15 +21,12 @@ controller.inicio = (req, res) => {
 controller.getLogIn = (req, res) => {
   const n = req.query.n
 
-  console.log(n)
-
   const errHost = {
     "001": "El usuario NO existe en la base de Datos",
     "002": "La Contraseña es incorrecta"
   } 
 
   const errorMessage = errHost[n]
-  console.log(errorMessage)
 
   res.render('logIn', { errorMessage })
 }
@@ -145,6 +141,7 @@ controller.postLogIn = async(req, res) => {
   }
 }
 
+// /hostSession-get
 controller.getHostSession = async(req, res) => {
   const token = req.cookies.access_token
   const user = req.cookies.user
@@ -152,8 +149,6 @@ controller.getHostSession = async(req, res) => {
   if (!token) return res.status(403).send('Debes iniciar sesión ANTES DEL TRY')
 
   try {
-    GuestRepository.printer()
-
     const data = jwt.verify(token, SECRET_JWT_KEY)
     const reservas = await guest.find({ idHost: user._id }).sort({ checkIn: -1 })
     res.render('hostSession', {
@@ -163,7 +158,6 @@ controller.getHostSession = async(req, res) => {
   } catch (error) {
     res.status(401).send('Debes iniciar sesión previameente')
   }
-
 }
 
 // /newBook-get
@@ -208,8 +202,8 @@ controller.postNewBook = async (req, res) => {
         let transporter = await nodemailer.createTransport({
           service: 'Gmail',
           auth: {
-            user: "luisferarevalou@gmail.com",
-            pass: "bcrg giyc vfap rzdg"
+            user: process.env.GOOGLE_ID,
+            pass: process.env.GOOGLE_SECRET
           }
         });
     
