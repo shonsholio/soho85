@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 const SECRET_JWT_KEY= require('../config.js')
 const nodemailer = require('nodemailer')
+const { isAsyncFunction } = require("util/types")
 
 require('dotenv').config()
 
@@ -88,7 +89,9 @@ controller.getHostEx = async (req, res) => {
 }
 
 controller.getAdminHost = async (req, res) => {
+  const token = req.cookies.access_token
 
+  if (!token) return res.status(403).send('SESION RESTRINGIDA SOLO PARA EL ADMINISTRADOR')
 
   try {
     const data = await host.find()
@@ -98,47 +101,87 @@ controller.getAdminHost = async (req, res) => {
     
 }
 
+// /admin/adminHost/filter - get
+controller.getAdminHostFilter = async (req, res) => {
+
+  const token = req.cookies.access_token
+  const hostId = req.query.h
+
+
+  if (!token) return res.status(403).send('SESION RESTRINGIDA SOLO PARA EL ADMINISTRADOR')
+
+  try {
+    const dataBook = await guest.find({ idHost: hostId })
+    const dataHost = await host.findOne({ _id: hostId })
+
+      res.render('adminBooks', { 
+        data: dataBook,
+        dataHost })
+  } catch {}
+
+}
+
 // /logIn-post
 controller.postLogIn = async(req, res) => {
 
   const { email, pass } = req.body
+
+  if (email !== process.env.ADMIN_ID) {
   
-  try {
-    const hostSaved = await host.find({ email: email })
-    let contUser = hostSaved.length
-    const user = hostSaved[0]
-
-    if (contUser > 0) {
-
-      bcrypt.compare(pass, user.pass, (err, resp) => {
-        if (resp) {
-          // AQUI ES DONDE DEBERIA HACERSE EL REGISTRO DE INICIO DE SESION
-          const token = jwt.sign({ id: user._id, email: user.email }, SECRET_JWT_KEY, { expiresIn: '1h' })
-          res
-            .cookie('access_token', token, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production',
-              samesite: 'strict',
-              maxAge: 1000 * 60 * 60
-            })
-            .cookie('user', user, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production',
-              samesite: 'strict',
-              maxAge: 1000 * 60 * 60
-            })
-            .redirect('/hostSession')
-        } else {
-          res.redirect('/logIn?n=002')
-        }
-      })
-    } else {
-      res.redirect('/logIn?n=001')
-
+    try {
+      const hostSaved = await host.find({ email: email })
+      let contUser = hostSaved.length
+      const user = hostSaved[0]
+  
+      if (contUser > 0) {
+  
+        bcrypt.compare(pass, user.pass, (err, resp) => {
+          if (resp) {
+            // AQUI ES DONDE DEBERIA HACERSE EL REGISTRO DE INICIO DE SESION
+            const token = jwt.sign({ id: user._id, email: user.email }, SECRET_JWT_KEY, { expiresIn: '1h' })
+            res
+              .cookie('access_token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                samesite: 'strict',
+                maxAge: 1000 * 60 * 60
+              })
+              .cookie('user', user, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                samesite: 'strict',
+                maxAge: 1000 * 60 * 60
+              })
+              .redirect('/hostSession')
+          } else {
+            res.redirect('/logIn?n=002')
+          }
+        })
+      } else {
+        res.redirect('/logIn?n=001')
+  
+      }
+    } catch (error) {
+      res.status(401).send(error.message)
     }
-  } catch (error) {
-    res.status(401).send(error.message)
+
+  } else if (pass == process.env.ADMIN_KEY) {
+      console.log('validando la clave del admin')
+        const token = jwt.sign({ email: email }, SECRET_JWT_KEY, { expiresIn: '1h' })
+            res
+              .cookie('access_token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                samesite: 'strict',
+                maxAge: 1000 * 60 * 60
+              })
+              res.redirect('/admin/adminHost')
+    } else {
+      res.redirect('/login')
+    
+
   }
+  
 }
 
 // /hostSession-get
@@ -169,11 +212,7 @@ controller.getNewBook = (req, res) => {
 
   try {
     const data = jwt.verify(token, SECRET_JWT_KEY)
-    if (user.aptos.includes(',') == true){
-      console.log('mas de un apto')
-    }
-  
-
+   
     res.render('newBook', {
       user
     })
@@ -237,6 +276,23 @@ controller.getLogOut = (req, res) => {
     .clearCookie('access_token', 'user')
     .redirect('/')
 
+}
+
+controller.getLobby = async(req, res) => {
+  // const token = req.cookies.access_token
+  // const user = req.cookies.user
+
+  // if (!token) return res.status(403).send('Debes iniciar sesión ANTES DEL TRY')
+
+  try {
+    // const data = jwt.verify(token, SECRET_JWT_KEY)
+    const reservas = await guest.find().sort({ checkIn: -1 })
+    res.render('lobby', {
+      reservas
+    })
+  } catch (error) {
+    res.status(401).send('Debes iniciar sesión previameente')
+  }
 }
 
 module.exports = controller

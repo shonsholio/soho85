@@ -4,13 +4,18 @@
 <div class="text-center mt-5">
 
   <p class="display-2 text-center">SOHO 85</p>
-  <p class="text-center">Verifique los datos y confirme para crear su cuenta</p>
+  <p class="text-center mt-5" style="line-height: 5px;">Si los datos son correctos,</p>
+  <p class="text-center">confirme para crear su cuenta</p>
 
-  
-  <p>Nombre: <%= form.name %></p>
-  <p>E-Mail: <%= form.email %></p>
-  <p>Contacto: <%= form.celular %></p>
-  <p>Apto(s): <%= form.aptos %></p>
+
+  <div class="card p-4 border-0">
+
+    <p>Nombre: <%= form.name %></p>
+    <p>E-Mail: <%= form.email %></p>
+    <p>Contacto: <%= form.celular %></p>
+    <p>Apto(s): <%= form.aptos %></p>
+
+  </div>
 
   <form action="/registerHost" method="POST">
     <input name="name" value="<%= form.name %>" class="d-none">

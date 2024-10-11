@@ -18,7 +18,9 @@ router.post('/newBook', controller.postNewBook)
 router.get('/logOut', controller.getLogOut)
 
 router.get('/admin/adminHost', controller.getAdminHost)
+router.get('/admin/adminHost/filter', controller.getAdminHostFilter)
 
+router.get('/lobby', controller.getLobby)
 
 router.post('/logIn', controller.postLogIn)
 router.post('/verRegister', controller.postRegister)

@@ -1,0 +1,35 @@
+<%- include('partials/_header') %>
+
+<div class="text-center mt-5">
+  
+  <p class="display-2">SOHO 85</p>
+  
+</div>
+
+<p class="mt-4 mx-5 text-center fw-bold background-color">Reservas - <%= dataHost.name %></p>
+
+<div class="d-flex justify-content-center">
+  <table class="table table" style="width: 80%;">
+    <tr>
+      <th>Apto</th>
+      <th>Llegada</th>
+      <th>Huésped</th>
+    </tr>
+
+    <tr>
+      <% for (x=0; x < data.length; ++x) { %>
+      <td><%= data[x].apto %></td>
+      <td><%= data[x].checkIn %></td>
+      <td><%= data[x].huesped %></td>
+
+    </tr>
+    <% } %> 
+  </table>
+</div>
+
+
+
+  
+
+</body>
+</html>   

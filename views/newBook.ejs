@@ -1,56 +1,62 @@
 <%- include('partials/_header') %>
 
-<p class="display-2">SOHO 85</p>
+<p class="display-1 text-center mt-5">SOHO 85</p>
 
-<div class="card">
+<div class="card border-0">
   
-  <p class="d-block display-4">Nueva Reserva</p>
+  <p class="d-block fw-bold text-center mt-3">Nueva Reserva</p>
   
-  <form action="/newBook" method="post" class="d-block">
+  <form action="/newBook" method="post" class="d-flex justify-content-center">
   
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-user"></i>
-      <input class="border-0" name="huesped" placeholder="Nombre del Huésped" required>
-    </div>
+    <div class="">
 
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-id-card-o"></i>
-      <input class="border-0" name="documento" type="documento" placeholder="Documento de Identidad" required>
-    </div>
+      <div class="form-control mb-3 border-0 text-center">
+        <i class="fa fa-user"></i>
+        <input class="border-0 text-center" name="huesped" placeholder="Nombre del Huésped" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0 text-center">
+        <i class="fa fa-id-card-o"></i>
+        <input class="border-0 text-center" name="documento" type="documento" placeholder="Documento Identidad" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0 text-center">
+        <i class="fa fa-chevron-right"></i>
+        <label for="checkIn">Día de Llegada</label>
+        <input class="border-0 text-center" name="checkIn" type="date" id="checkIn" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0 text-center">
+        <i class="fa fa-chevron-left"></i>
+        <label for="checkOut">Día de salida</label>
+        <input class="border-0 text-center" name="checkOut" type="date" id="checkOut" required>
+      </div>
+  
+      <div class="form-control mb-3 border-0 text-center">
+        <i class="fa fa-flag"></i>
+        <input class="border-0 text-center" name="nacion" type="string" placeholder="Nacionalidad" required>
+      </div>
+  
+      <% let unidades = user.aptos.split(',') %>
+      
+      <div class="form-control mb-3 border-0 text-center">
+        <i class="fa fa-home"></i>
+        <select name="apto" id="">
+          <option>Apto</option>
+          
+          <% for (x=0; x < unidades.length; ++x) { %> 
+          <option value="<%= unidades[x] %>"><%= unidades[x] %></option>
+          <% } %>
+        </select>
+      </div>
+  
+      <input name="idHost" value="<%= user._id %>" class="d-none">
+      
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mt-3">ENVIAR</button>
+      </div>
 
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-chevron-right"></i>
-      <label for="checkIn">Día de Llegada</label>
-      <input class="border-0" name="checkIn" type="date" id="checkIn" prequired>
     </div>
-
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-chevron-left"></i>
-      <label for="checkOut">Día de salida</label>
-      <input class="border-0" name="checkOut" type="date" id="checkOut" required>
-    </div>
-
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-flag"></i>
-      <input class="border-0" name="nacion" type="string" placeholder="Nacionalidad" required>
-    </div>
-
-    <% let unidades = user.aptos.split(',') %>
-    
-    <div class="form-control mb-3" style="width: 75%;">
-      <i class="fa fa-home"></i>
-      <select name="apto" id="">
-        <option>Apto</option>
-        
-        <% for (x=0; x < unidades.length; ++x) { %> 
-        <option value="<%= unidades[x] %>"><%= unidades[x] %></option>
-        <% } %>
-      </select>
-    </div>
-
-    <input name="idHost" value="<%= user._id %>" class="d-none">
-    
-    <button type="submit">ENVIAR</button>
   
   </form>
 
