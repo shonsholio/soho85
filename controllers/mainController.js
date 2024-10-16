@@ -212,7 +212,7 @@ controller.getNewBook = (req, res) => {
 
   try {
     const data = jwt.verify(token, SECRET_JWT_KEY)
-   
+    
     res.render('newBook', {
       user
     })
