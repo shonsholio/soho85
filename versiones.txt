@@ -1,0 +1,14 @@
+1.0
+
+1.1
+Creación de correo ca.soho85@gmail.com para que guarde las notificaciones de reserva.
+Agregar 
+  * Total de huespedes
+  * Si hay menores de edad 
+  * Placas de vehiculo
+  * Habeas Data (PENDIENTE)
+
+Funciones por Agregar
+  * Que el usuario anfitrión pueda editar su lista de reservas
+  * Hacer una db de registro de ingreso de cada usuario
+  * verificar de un listado, si el apto existe o no existe, al momento del registro

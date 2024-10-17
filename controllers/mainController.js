@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 const SECRET_JWT_KEY= require('../config.js')
 const nodemailer = require('nodemailer')
-const { isAsyncFunction } = require("util/types")
+const moment = require('moment-timezone')
 
 require('dotenv').config()
 
@@ -94,7 +94,7 @@ controller.getAdminHost = async (req, res) => {
   if (!token) return res.status(403).send('SESION RESTRINGIDA SOLO PARA EL ADMINISTRADOR')
 
   try {
-    const data = await host.find()
+    const data = await guest.find().sort({ checkIn: -1 })
     res.render('admin', { 
       data })
     } catch {}
@@ -121,18 +121,30 @@ controller.getAdminHostFilter = async (req, res) => {
 
 }
 
+// /admin/DetailBook - get
+controller.getAdminDetailBook = async(req, res) => {
+  const idGuest = req.query.id
+
+  try {
+    const book = await guest.findOne({ _id: idGuest })
+    res.render('detailBook', {
+      book
+    })
+  } catch {}
+}
+
 // /logIn-post
 controller.postLogIn = async(req, res) => {
 
   const { email, pass } = req.body
 
   if (email !== process.env.ADMIN_ID) {
-  
+    
     try {
       const hostSaved = await host.find({ email: email })
       let contUser = hostSaved.length
       const user = hostSaved[0]
-  
+
       if (contUser > 0) {
   
         bcrypt.compare(pass, user.pass, (err, resp) => {
@@ -166,7 +178,9 @@ controller.postLogIn = async(req, res) => {
     }
 
   } else if (pass == process.env.ADMIN_KEY) {
+
       console.log('validando la clave del admin')
+
         const token = jwt.sign({ email: email }, SECRET_JWT_KEY, { expiresIn: '1h' })
             res
               .cookie('access_token', token, {
@@ -232,9 +246,9 @@ controller.postNewBook = async (req, res) => {
     const data = jwt.verify(token, SECRET_JWT_KEY)
 
     const id = crypto.randomUUID()
-    const { huesped, documento, checkIn, checkOut, nacion, apto, idHost } = req.body
+    const { huesped, documento, pax, menor, checkIn, checkOut, nacion, vehiculo, apto, idHost } = req.body
 
-    const newGuest = await guest.create({ _id: id, huesped, documento, checkIn, checkOut, nacion, apto, idHost })
+    const newGuest = await guest.create({ _id: id, huesped, documento, pax, menor, checkIn, checkOut, nacion, vehiculo, apto, idHost })
 
     async function sendEmail() {
       try {
@@ -247,10 +261,10 @@ controller.postNewBook = async (req, res) => {
         });
     
         let mailOptions = {
-          from: '"Luisfere" <luisferarevalou@gmail.com',
-          to: 'luisferarevalou@gmail.com',
-          subject: 'Test email from Node.js',
-          html: `Visitante: ${huesped}<br>Documento: ${documento}<br> Apto: ${apto}<br>Día de llegada: ${checkIn}<br>Día de salida ${checkOut}<br><br>Responsable: ${user.name}<br>Contacto: ${user.celular}`
+          from: '"Control de acceso Soho 85" <soho85ca@gmail.com',
+          to: 'soho85ca@gmail.com',
+          subject: `${apto} NUEVO INGRESO`,
+          html: `Visitante: ${huesped}<br>Documento: ${documento}<br> Total Huéspedes: ${pax}<br> Menores de edad: ${menor}<br> Apto: ${apto}<br>Día de llegada: ${checkIn}<br>Día de salida ${checkOut}<br>Vehiculo: ${vehiculo}<br><br>Responsable: ${user.name}<br>Contacto: ${user.celular}`
         };
     
         let info = await transporter.sendMail(mailOptions);
@@ -286,13 +300,30 @@ controller.getLobby = async(req, res) => {
 
   try {
     // const data = jwt.verify(token, SECRET_JWT_KEY)
+
+    let ahora = moment.tz('America/Bogota').format('YYYY-MM-DD')
+
     const reservas = await guest.find().sort({ checkIn: -1 })
     res.render('lobby', {
-      reservas
+      reservas,
+      hoy: ahora
     })
   } catch (error) {
     res.status(401).send('Debes iniciar sesión previameente')
   }
 }
+
+// /lobby/detail - get
+controller.getLobbyDetail = async(req, res) => {
+  const idGuest = req.query.id
+
+  try {
+    const book = await guest.findOne({ _id: idGuest })
+    res.render('lobbyDetail', {
+      book
+    })
+  } catch {}
+}
+
 
 module.exports = controller

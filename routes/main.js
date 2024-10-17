@@ -19,8 +19,12 @@ router.get('/logOut', controller.getLogOut)
 
 router.get('/admin/adminHost', controller.getAdminHost)
 router.get('/admin/adminHost/filter', controller.getAdminHostFilter)
+router.get('/admin/detailBook', controller.getAdminDetailBook)
+
 
 router.get('/lobby', controller.getLobby)
+router.get('/lobby/detail', controller.getLobbyDetail)
+
 
 router.post('/logIn', controller.postLogIn)
 router.post('/verRegister', controller.postRegister)

@@ -7,25 +7,27 @@
   <p class="display-2">SOHO 85</p>
   <br>
 
-  <p class="mx-5">Listado Anfitriones</p>
+  <p class="mx-5">Listado Reservas</p>
 
   <table class="table">
     <thead>
       <tr>
-        <th>Anfitrión</th>
         <th>Apto</th>
+        <th>Llegada</th>
+        <th>Huesped</th>
+
       </tr>
     </thead>
 
     <tr>
-      <% for (a=0 ; a < data.length; ++a) { %>
-        <td><a href="/admin/adminHost/filter?h=<%= data[a]._id%>"><%= data[a].name %></a</td>
-        <% let aptos = data[a].aptos.split(',') %>
-        <% for (x=0; x< aptos.length; ++x) { %>
-          <td><%= aptos[x] %></td>
-        <% } %>
+      <% for (x = 0; x < data.length; ++x) { %>
+
+      <td><%= data[x].apto %></td>
+      <td><%= data[x].checkIn %></td>
+      <td><a href="/admin/detailBook?id=<%= data[x]._id %>" class="text-decoration-none"><%= data[x].huesped %></a></td> 
+      </a>
     </tr>
-    <% } %> <!--Ciere del for a-->
+    <% } %>
   </table>
   <br>
 

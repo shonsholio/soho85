@@ -3,35 +3,35 @@
 <div class="text-center mt-5">
   
   <p class="display-2">SOHO 85</p>
-  <p>Panel de Control</p>
+  <p class="mt-4 mx-5 text-center fw-bold background-color">Reservas <%= hoy %></p>
       
 </div>
 
-<p class="mt-4 mx-5 text-center fw-bold background-color">Reservas</p>
 
 <div class="d-flex justify-content-center">
   <table class="table table" style="width: 80%;">
     <tr>
-      <th>Llegada</th>
-      <th>Huésped</th>
       <th>Apto</th>
+      <th>Huésped</th>
+      <th>Documento</th>
     </tr>
   
     <tr>
       <% for (x=0; x < reservas.length; ++x) { %>
-        <td><%= reservas[x].checkIn %></td>
-        <td><%= reservas[x].huesped %></td>
+
+        <% if (reservas[x].checkIn ===hoy) { %>
         <td><%= reservas[x].apto %></td>
-  
-  
+        <td><a href="/lobby/detail?id=<%= reservas[x]._id %>" class="text-decoration-none text-body-emphasis"><%= reservas[x].huesped %></a></td>
+        
+        <td><%= reservas[x].documento %></td>
+        
+        <% } %>
     </tr>
     <% } %>
   </table>
 </div>
 
 
-
-  
 
 </body>
 </html>   
