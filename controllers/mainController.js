@@ -19,6 +19,7 @@ controller.inicio = (req, res) => {
   res.render('main')
 }
 
+// /logIn-get
 controller.getLogIn = (req, res) => {
   const n = req.query.n
 
