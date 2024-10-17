@@ -253,23 +253,27 @@ controller.postNewBook = async (req, res) => {
 
     async function sendEmail() {
       try {
-        let transporter = await nodemailer.createTransport({
+        let gmailUser = process.env.GOOGLE_ID
+        let gmailPass = process.env.GOOGLE_SECRET
+
+
+        let transporter = nodemailer.createTransport({
           service: 'Gmail',
           auth: {
-            user: process.env.GOOGLE_ID,
-            pass: process.env.GOOGLE_SECRET
+            user: gmailUser,
+            pass: gmailPass
           }
         });
     
         let mailOptions = {
-          from: '"Control de acceso Soho 85" <soho85ca@gmail.com',
-          to: 'soho85ca@gmail.com',
+          from: ` "Control de acceso Soho 85" <${gmailUser}>`,
+          to: `${gmailUser}`,
           subject: `${apto} NUEVO INGRESO`,
           html: `Visitante: ${huesped}<br>Documento: ${documento}<br> Total Huéspedes: ${pax}<br> Menores de edad: ${menor}<br> Apto: ${apto}<br>Día de llegada: ${checkIn}<br>Día de salida ${checkOut}<br>Vehiculo: ${vehiculo}<br><br>Responsable: ${user.name}<br>Contacto: ${user.celular}`
         };
     
         let info = await transporter.sendMail(mailOptions);
-        console.log('Message sent: %s', info.messageId);
+        console.log('Message sent: %s', info.messageId, gmailUser);
       } catch (error) {
         console.error('Error sending email:', error);
         throw error;
